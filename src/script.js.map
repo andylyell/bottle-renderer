@@ -1,0 +1,1 @@
+{"version":3,"file":"script.js","sources":["js/index.js"],"sourcesContent":["\"use strict\";\nconsole.log('it worked');"],"names":["console","log"],"mappings":";;;CACAA,OAAO,CAACC,GAAR,CAAY,WAAZ;;;;;;"}

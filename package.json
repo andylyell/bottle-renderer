@@ -1,14 +1,43 @@
 {
-  "name": "development",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Andy Lyell",
-  "license": "ISC",
-  "dependencies": {
-    "jimp": "^0.16.1"
-  }
+    "name": "rottle-renderer",
+    "version": "1.0.0",
+    "description": "Bottle Renderer",
+    "main": "index.js",
+    "scripts": {
+        "devserver": "live-server --verbose --port=4444 --open=./src",
+        "watch:js": "rollup --config rollup.config.dev.js --watch -m",
+        "watch:sass": "node-sass src/sass/main.scss src/css/style.css -w",
+        "start": "npm-run-all --parallel devserver watch:js watch:sass",
+        "compile:sass": "node-sass src/sass/main.scss public/css/style.comp.css",
+        "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' public/css/style.comp.css -o public/css/style.prefix.css",
+        "compress:css": "node-sass public/css/style.prefix.css public/css/style.css --output-style compressed",
+        "build:css": "npm-run-all compile:sass prefix:css compress:css",
+        "clean:css": "trash ./public/css/style.comp.css ./public/css/style.prefix.css",
+        "build:js": "rollup --config rollup.config.prod.js",
+        "build:html": "html-minifier --input-dir src --output-dir public --file-ext html --remove-comments --collapse-whitespace",
+        "build:images": "imagemin ./src/images/* --out-dir=public/images",
+        "clean": "trash ./public",
+        "create:public": "mkdir public && cd $_ && mkdir images css",
+        "build": "npm-run-all -s clean create:public build:html build:css clean:css build:js build:images",
+        "build:test": "live-server --port=5555 --open=./public"
+    },
+    "author": "Andy Lyell",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.12.3",
+        "@babel/preset-env": "^7.12.1",
+        "@rollup/plugin-babel": "^5.2.1",
+        "@rollup/plugin-replace": "^2.3.4",
+        "autoprefixer": "^10.0.1",
+        "html-minifier": "^4.0.0",
+        "imagemin-cli": "^7.0.0",
+        "live-server": "^1.2.1",
+        "node-sass": "^6.0.1",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.1.6",
+        "postcss-cli": "^8.2.0",
+        "rollup": "^2.26.11",
+        "rollup-plugin-terser": "^7.0.2",
+        "trash-cli": "^4.0.0"
+    }
 }
