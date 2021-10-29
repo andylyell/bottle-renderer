@@ -6,3 +6,9 @@
 //===== Base ====//
 @import './base/reset';
 @import './base/foundation';
+@import './base/typography';
+//===== Components ====//
+@import './components/buttons';
+@import './components/navigation';
+//===== Layout ====//
+@import './layout/upload-section';

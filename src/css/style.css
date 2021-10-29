@@ -312,3 +312,12 @@ template {
 
 html {
   background-color: #F1EBE4; }
+
+html {
+  font-family: 'Source Sans Pro', sans-serif; }
+
+.navigation {
+  margin: 48px 24px; }
+
+.section-upload {
+  padding: 0px 64px; }
