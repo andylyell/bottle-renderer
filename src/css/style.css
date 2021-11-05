@@ -317,7 +317,29 @@ html {
   font-family: 'Source Sans Pro', sans-serif; }
 
 .navigation {
-  margin: 48px 24px; }
+  margin: 48px 24px;
+  display: flex; }
+  .navigation__icon {
+    width: 50px;
+    margin-right: 16px; }
+    .navigation__icon svg {
+      fill: #FF4032; }
+  .navigation__text {
+    font-size: 22px;
+    color: #FF4032;
+    font-family: 'Prata', serif; }
+
+.image-preview {
+  width: 500px; }
+  .image-preview .hide {
+    display: none; }
 
 .section-upload {
   padding: 0px 64px; }
+  .section-upload h1 {
+    font-size: 64px;
+    font-weight: 600; }
+  .section-upload p {
+    line-height: 28px;
+    font-size: 20px;
+    margin-bottom: 24px; }

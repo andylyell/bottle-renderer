@@ -1,3 +1,19 @@
 .navigation {
     margin: 48px 24px;
+
+    display: flex;
+
+    &__icon {
+        width: 50px;
+        margin-right: 16px;
+        & svg {
+            fill: $red-1;
+        }
+    }
+
+    &__text {
+        font-size: 22px;
+        color: $red-1;
+        font-family: 'Prata', serif;
+    }
 }

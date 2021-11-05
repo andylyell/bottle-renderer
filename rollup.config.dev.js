@@ -19,6 +19,6 @@ export default {
         ),
         replace({
             __route__: '/src/',
-        })
+        }),
     ]
 };

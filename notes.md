@@ -8,6 +8,9 @@ https://github.com/oliver-moran/jimp
 This is a small tutorial on using said image library
 https://www.section.io/engineering-education/jimp-image-processing/
 
+Using Jimp in the browser
+https://tutorial.tips/how-to-crop-image-in-browser-using-jimp/
+
 ### Technology questions
 
 1. Can you store images in local storage on a web page?

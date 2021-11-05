@@ -9,25 +9,35 @@
     <link rel="shortcut icon" sizes="32x32" href="./images/favicon-fill.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Prata&family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
 </head>
 
 <body>
 
     <!-- Navigation -->
     <nav class="navigation">
-        Rival
+        <div class="navigation__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 40">
+                <path
+                    d="M93.87 7.37C89.53 4 83.16 3 75.92 4.68 67 6.34 56.17 10.34 50 15.3c-6.17-5-17-9-25.92-10.62C16.84 3 10.47 4 6.14 7.37a12.93 12.93 0 0 0-5 10.14 13.56 13.56 0 0 0 4 9.84c4.91 5.26 13.89 8.53 24 8.76h.14C34 36.09 44 35.55 50 31.61c6 3.94 16 4.48 20.73 4.5h.14c10.14-.23 19.12-3.5 24-8.76a13.56 13.56 0 0 0 4-9.84 13 13 0 0 0-5-10.14ZM29.31 25.11c-8.5-.21-14-3-16.17-5.26a3.18 3.18 0 0 1-1-1.92v-.2a2 2 0 0 1 .78-1.73 7.67 7.67 0 0 1 4.56-1.13 19 19 0 0 1 4.23.53l.26.06C30 17 38.25 20.39 42.29 23.23a39 39 0 0 1-12.98 1.88Zm57.55-5.26c-2.15 2.3-7.67 5-16.17 5.26a39 39 0 0 1-13-1.88C61.75 20.39 70 17 78 15.48l.26-.06c4.56-1.06 7.59-.34 8.79.6a2 2 0 0 1 .78 1.71v.2a3.18 3.18 0 0 1-.97 1.92Z" />
+            </svg>
+        </div>
+        <div class="navigation__text">
+            Rival
+        </div>
     </nav>
 
     <!-- Main body -->
-    <section class="section-upload">
+    <section class="section-upload" id="section-upload">
         <h1>Upload Design.</h1>
-        <p>Upload a PNG with a transparent background, floor shadow and reflection (1200 x 500px)</p>
+        <p>Upload a PNG with a transparent background, <br> floor shadow and reflection (1200 x 500px)</p>
+        <input type="file" id="fileInput">
+        <!-- <img class="image-preview" src="" alt="preview" id="imagePreview"> -->
     </section>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
