@@ -1,0 +1,43 @@
+.button {
+
+    &__file {
+
+        & input {
+            margin: 0;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            display: none;
+        }
+
+        &--upload {
+            content: 'Upload';
+            border-radius: 6px;
+            padding: 16px 20px;
+            background: $red-1;
+            font-size: 20px;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            transition: .2s all;
+
+            &:hover {
+                background: $red-2;
+            }
+
+            &::before {
+                content: 'Upload';
+                margin-right: 8px;
+            }
+
+            &::after {
+                width: 24px;
+                height: 24px;
+                content: url('../images/arrow--right.svg');
+            }
+            
+        }
+    }
+
+}

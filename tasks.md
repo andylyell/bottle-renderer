@@ -1,5 +1,7 @@
 # Tasks
+#### 2021-11-29
 
-
-1. Create simple site to allow uploading of an image and then click a button to overlay one image onto the other and preview it.
+1. Style choose file button
+2. Use placeholder image when no image is present
+3. Create ability to remove image / uploading will remove current image and place a new onw into the page
 

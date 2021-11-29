@@ -32,11 +32,25 @@
 
     <!-- Main body -->
     <section class="section-upload" id="section-upload">
-        <h1>Upload Design.</h1>
-        <p>Upload a PNG with a transparent background, <br> floor shadow and reflection (1200 x 500px)</p>
-        <input type="file" id="fileInput">
-        <!-- <img class="image-preview" src="" alt="preview" id="imagePreview"> -->
+
+        <div class="section-upload__form">
+            <h1>Upload Design.</h1>
+            <p>Upload a PNG with a transparent background, floor shadow and reflection (1200 x 500px)</p>
+
+            <form action="">
+                <label class="button__file" for="fileInput">
+                    <input type="file" id="fileInput">
+                    <span class="button__file--upload"></span>
+                </label>
+            </form>
+        </div>
+        <div class="section-upload__image">
+            <img src="./images/empty-bottle-placeholder.png" alt="">
+        </div>
     </section>
+
+    <section class="section-line-up" id="section-line-up"></section>
+
     <script src="script.js"></script>
 </body>
 

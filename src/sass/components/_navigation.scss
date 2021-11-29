@@ -1,7 +1,7 @@
 .navigation {
     margin: 48px 24px;
-
     display: flex;
+    align-items: center;
 
     &__icon {
         width: 50px;
@@ -12,7 +12,7 @@
     }
 
     &__text {
-        font-size: 22px;
+        font-size: 32px;
         color: $red-1;
         font-family: 'Prata', serif;
     }

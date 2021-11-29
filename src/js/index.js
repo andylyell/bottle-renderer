@@ -1,27 +1,19 @@
 "use strict";
 console.log('it worked');
 
+//////////////////////
+// DOM Elements
+//////////////////////
+
 // get file 
 const fileInput = document.getElementById('fileInput');
 const sectionUpload = document.getElementById('section-upload');
 // const imagePreview = document.getElementById('imagePreview');
 
 
-fileInput.addEventListener("change", (e) => { //select file input button
-    
-    // console.log(e.target.files); //print obj to console
-
-    const reader = new FileReader(); //create new reader instance to convert to data url
-    reader.readAsDataURL(e.target.files[0]); //pass file into reader
-
-    reader.addEventListener("load", () => { //add event listener to the load event
-        localStorage.setItem("bottle-image", reader.result);
-        putImageInDom();
-    });
-
-});
-
-document.addEventListener("DOMContentLoaded", putImageInDom);
+//////////////////////
+// Functions
+//////////////////////
 
 function putImageInDom() {
 
@@ -38,3 +30,22 @@ function putImageInDom() {
         sectionUpload.appendChild(imagePreviewElement);
     };
 };
+
+//////////////////////
+// Event listeners
+//////////////////////
+document.addEventListener("DOMContentLoaded", putImageInDom);
+fileInput.addEventListener("change", (e) => { //select file input button
+    
+    // console.log(e.target.files); //print obj to console
+
+    const reader = new FileReader(); //create new reader instance to convert to data url
+    reader.readAsDataURL(e.target.files[0]); //pass file into reader
+
+    reader.addEventListener("load", () => { //add event listener to the load event
+        localStorage.setItem("bottle-image", reader.result);
+        putImageInDom();
+    });
+
+});
+

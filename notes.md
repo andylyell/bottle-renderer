@@ -20,3 +20,8 @@ https://tutorial.tips/how-to-crop-image-in-browser-using-jimp/
 
 
 
+### Creating the file upload button
+
+Using [wtfforms](http://wtfforms.com/) to get a sense of styling for the file upload buttons
+Using https://www.geeksforgeeks.org/how-to-use-svg-with-before-or-after-pseudo-element/ this website to use SVGs within a psuedo element
+Using the `display:inline-flex' element for the first time
