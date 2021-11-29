@@ -2,6 +2,11 @@
 console.log('it worked');
 
 //////////////////////
+// Imports
+//////////////////////
+import {bottlePreviewTemplate} from './templates/bottlePreview.js';
+
+//////////////////////
 // DOM Elements
 //////////////////////
 
@@ -20,14 +25,14 @@ function putImageInDom() {
     // console.log("put image in the DOM");
     const bottleImageDataUrl = localStorage.getItem('bottle-image');
 
-    // console.log(typeof bottleImageDataUrl === 'boolean');
+    if(bottleImageDataUrl) { //check if an image exists within localStorage
 
-    if(bottleImageDataUrl) {
-        const imagePreviewElement = document.createElement("img");
-        imagePreviewElement.setAttribute("alt", "uploaded bottle");
-        imagePreviewElement.setAttribute("src", bottleImageDataUrl);
-        imagePreviewElement.classList.add('image-preview')
-        sectionUpload.appendChild(imagePreviewElement);
+        sectionUpload.innerHTML = ''; //clear current image in the DOM
+
+        const imagePreviewElement = bottlePreviewTemplate('uploaded bottle', bottleImageDataUrl); //call function to populate template
+
+        sectionUpload.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
+
     };
 };
 
@@ -37,9 +42,14 @@ function putImageInDom() {
 document.addEventListener("DOMContentLoaded", putImageInDom);
 fileInput.addEventListener("change", (e) => { //select file input button
     
-    // console.log(e.target.files); //print obj to console
+    if (localStorage.getItem('bottle-image')) { // check if there is image data within local storage
+        localStorage.setItem("bottle-image", ''); //clear localStorage
+    } else {
+        console.log('nothing there');
+    }
 
     const reader = new FileReader(); //create new reader instance to convert to data url
+
     reader.readAsDataURL(e.target.files[0]); //pass file into reader
 
     reader.addEventListener("load", () => { //add event listener to the load event
