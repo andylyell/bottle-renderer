@@ -1,10 +1,9 @@
 "use strict";
-console.log('it worked');
 
 //////////////////////
 // Imports
 //////////////////////
-import {bottlePreviewTemplate} from './templates/bottlePreview.js';
+import { bottlePreviewTemplate } from './templates/bottlePreview.js';
 
 //////////////////////
 // DOM Elements
@@ -20,7 +19,7 @@ const sectionUpload = document.getElementById('section-upload');
 // Functions
 //////////////////////
 
-function putImageInDom() {
+function putImageInDom() { //function to put imported image in DOM
 
     // console.log("put image in the DOM");
     const bottleImageDataUrl = localStorage.getItem('bottle-image');
@@ -36,10 +35,49 @@ function putImageInDom() {
     };
 };
 
+async function updateCompetitorImage() { //function to create competitor image and place within DOM
+
+    console.log('update competitor image');
+
+    let bottleImageDataUrl = localStorage.getItem('bottle-image');
+    // bottleImageDataUrl = Buffer.from(bottleImageDataUrl, 'base64');
+    // console.log(bottleImageDataUrl);
+    const newImage = await Jimp.read(Buffer.from(bottleImageDataUrl, 'base64'));
+    console.log(newImage);
+
+    await newImage.rotate(180);
+    await newImage.writeAsync(`${Date.now()}-rotatedImage.png`);
+
+
+    //get imported image
+    // let bottleImage = await Jimp.read(bottleImageDataUrl);
+
+    // console.log(Jimp);
+    // console.log(bottleImage);
+
+    //get background
+    // const image = await Jimp.read('./images/background.png');
+
+    //position import image on background and create
+    // bottleImage = await bottleImage 
+    //     image.composite(bottleImage, 0,0, {
+    //         mode: Jimp.BLEND_SOURCE_OVER,
+    //         opacityDest: 1,
+    //         opacitySource: 0.5
+    //     })
+
+    // create new competitor image in local storage
+    // await bottleImage.writeAsync(`newImage.png`);
+
+    //place new image in the DOM
+    
+}
+
 //////////////////////
 // Event listeners
 //////////////////////
 document.addEventListener("DOMContentLoaded", putImageInDom);
+
 fileInput.addEventListener("change", (e) => { //select file input button
     
     if (localStorage.getItem('bottle-image')) { // check if there is image data within local storage
@@ -55,6 +93,7 @@ fileInput.addEventListener("change", (e) => { //select file input button
     reader.addEventListener("load", () => { //add event listener to the load event
         localStorage.setItem("bottle-image", reader.result);
         putImageInDom();
+        updateCompetitorImage();
     });
 
 });

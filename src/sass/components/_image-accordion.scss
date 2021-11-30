@@ -1,0 +1,40 @@
+.image-accordion {
+    border-top: 1px solid $dark-grey-1;
+    border-bottom: 1px solid $dark-grey-1;
+    padding: 48px 0;
+    margin-bottom: 64px;
+
+    &__information {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 32px;
+    }
+
+    &__title {
+
+        & h2 {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        & p {
+            width: 70%;
+            font-size: 20px;
+            line-height: 28px;
+        }
+        
+    }
+
+    &__controls {
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+        & *:not(:last-child) {
+            margin-bottom: 16px;
+        }
+    }
+
+    & img {
+        width: 100%;
+    }
+}

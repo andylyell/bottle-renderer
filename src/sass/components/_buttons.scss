@@ -1,5 +1,76 @@
 .button {
 
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-size: 20px;
+    transition: .2s all;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--primary {
+        
+        background: $red-1;
+        color: #fff;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+        & span {
+            margin-left: 8px;
+            $icon-dimensions: 32px;
+            width: $icon-dimensions;
+            height: $icon-dimensions;
+            & svg {
+                fill: #fff;
+            }
+        }
+
+        &:hover {
+            background: $red-2;
+        }
+        
+    }
+
+    &--secondary {
+        background: none;
+        border: 1px solid $red-1;
+        color: $red-1;
+        &:hover {
+            background: $red-1;
+            color: #fff;
+        }        
+    }
+
+    &--tertiary {
+        background: none;
+        border: 1px solid $dark-grey-1;
+        color: $dark-grey-1;
+        &:hover {
+            background: $dark-grey-1;
+            color: #fff;
+            & span svg {
+                fill: #fff;
+            }
+        }
+        & span {
+            margin-left: 8px;
+            $icon-dimensions: 32px;
+            width: $icon-dimensions;
+            height: $icon-dimensions;
+            & svg {
+                transition: .2s all;
+                fill: $dark-grey-1;
+            }
+        }
+    }
+
+    &--max {
+        width: 100%;
+    }
+
     &__file {
 
         & input {
