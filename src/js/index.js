@@ -12,6 +12,7 @@ import { bottlePreviewTemplate } from './templates/bottlePreview.js';
 // get file 
 const fileInput = document.getElementById('fileInput');
 const sectionUpload = document.getElementById('section-upload');
+const sectionCompetitor = document.getElementById('section-line-up');
 // const imagePreview = document.getElementById('imagePreview');
 
 
@@ -39,14 +40,27 @@ async function updateCompetitorImage() { //function to create competitor image a
 
     console.log('update competitor image');
 
-    let bottleImageDataUrl = localStorage.getItem('bottle-image');
-    // bottleImageDataUrl = Buffer.from(bottleImageDataUrl, 'base64');
-    // console.log(bottleImageDataUrl);
-    const newImage = await Jimp.read(Buffer.from(bottleImageDataUrl, 'base64'));
-    console.log(newImage);
-
+    let bottleImageDataUrl = localStorage.getItem('bottle-image'); //get the image from localStorage 
+    bottleImageDataUrl = Buffer.from(bottleImageDataUrl.replace(/^data:image\/\w+;base64,/, ""),'base64'); // turn image into binary format for Jimp to read
+    const newImage = await Jimp.read(Buffer.from(bottleImageDataUrl, 'base64')); // load image using Jimp
+    
     await newImage.rotate(180);
-    await newImage.writeAsync(`${Date.now()}-rotatedImage.png`);
+
+    await newImage.getBase64(jimp.MIME_PNG, function (err, src) {
+        console.log(src);
+        localStorage.setItem("competitor-image", src);
+        const imagePreviewElement = bottlePreviewTemplate('uploaded bottle', src); //call function to populate template
+        sectionCompetitor.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
+    });
+
+
+
+    // await newImage.getBase64Async(Jimp.MIME_PNG);
+    // console.log(newImage);
+    // localStorage.setItem("competitor-image", newImage); //clear localStorage
+    // clg
+
+    // await newImage.writeAsync(`${Date.now()}-rotatedImage.png`);
 
 
     //get imported image

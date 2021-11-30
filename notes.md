@@ -24,4 +24,8 @@ https://tutorial.tips/how-to-crop-image-in-browser-using-jimp/
 
 Using [wtfforms](http://wtfforms.com/) to get a sense of styling for the file upload buttons
 Using https://www.geeksforgeeks.org/how-to-use-svg-with-before-or-after-pseudo-element/ this website to use SVGs within a psuedo element
-Using the `display:inline-flex' element for the first time
+Using the `display:inline-flex' el
+
+### Converting from Base64 to binary format
+https://github.com/oliver-moran/jimp/issues/322
+https://stackoverflow.com/questions/52400486/error-cropping-a-base64-format-image-using-jimp-package-in-nodejs

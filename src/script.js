@@ -47,7 +47,8 @@
   // get file 
 
   var fileInput = document.getElementById('fileInput');
-  var sectionUpload = document.getElementById('section-upload'); // const imagePreview = document.getElementById('imagePreview');
+  var sectionUpload = document.getElementById('section-upload');
+  var sectionCompetitor = document.getElementById('section-line-up'); // const imagePreview = document.getElementById('imagePreview');
   //////////////////////
   // Functions
   //////////////////////
@@ -83,21 +84,28 @@
             case 0:
               //function to create competitor image and place within DOM
               console.log('update competitor image');
-              bottleImageDataUrl = localStorage.getItem('bottle-image'); // bottleImageDataUrl = Buffer.from(bottleImageDataUrl, 'base64');
-              // console.log(bottleImageDataUrl);
+              bottleImageDataUrl = localStorage.getItem('bottle-image'); //get the image from localStorage 
 
-              _context.next = 4;
+              bottleImageDataUrl = Buffer.from(bottleImageDataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64'); // turn image into binary format for Jimp to read
+
+              _context.next = 5;
               return Jimp.read(Buffer.from(bottleImageDataUrl, 'base64'));
 
-            case 4:
+            case 5:
               newImage = _context.sent;
-              console.log(newImage);
               _context.next = 8;
               return newImage.rotate(180);
 
             case 8:
               _context.next = 10;
-              return newImage.writeAsync("".concat(Date.now(), "-rotatedImage.png"));
+              return newImage.getBase64(jimp.MIME_PNG, function (err, src) {
+                console.log(src);
+                localStorage.setItem("competitor-image", src);
+                var imagePreviewElement = bottlePreviewTemplate('uploaded bottle', src); //call function to populate template
+
+                //call function to populate template
+                sectionCompetitor.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
+              });
 
             case 10:
             case "end":
