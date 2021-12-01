@@ -8,3 +8,10 @@
 #### 2021-11-30
 1. When uploading bottle to page - change the competitor lineup with bottle image
 
+#### 2021-12-1
+
+1. add new image into DOM to replace old competitor image
+2. update competitor image with new competitor image
+3. Store in local storage
+4. Export DataUrls as images for downloads
+
