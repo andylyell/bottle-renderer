@@ -436,6 +436,30 @@ html {
   .image-preview .hide {
     display: none; }
 
+.loading-spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; }
+  .loading-spinner__spinner {
+    width: 100px;
+    height: 100px;
+    border-left: 8px solid #252525;
+    border-right: 8px solid #252525;
+    border-top: 8px solid #252525;
+    border-radius: 10px 100px 50px;
+    animation: rotate 1.5s linear infinite; }
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg); } }
+
 .section-upload {
   padding: 0px 64px;
   display: flex;
@@ -459,6 +483,9 @@ html {
 
 .section-competitor-line-up {
   padding: 0px 64px; }
+
+.competitor-image-container {
+  position: relative; }
 
 .section-footer {
   padding: 0px 64px;

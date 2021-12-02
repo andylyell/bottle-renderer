@@ -11,7 +11,8 @@
 
     var fileInput = document.getElementById('fileInput');
     var sectionUpload = document.getElementById('section-upload');
-    var competitorImageContainer = document.getElementById('competitor-image-container'); //////////////////////
+    var competitorImageContainer = document.getElementById('competitor-image-container');
+    var spinner = "\n    <div class=\"loading-spinner\">\n        <div class=\"loading-spinner__spinner\"></div>\n    </div>"; //////////////////////
 
     function placeImagesInDom(images) {
       //get array of multiple image objects
@@ -41,6 +42,8 @@
       var bottleImage = Jimp.read(bottleImageDataUrl) //use a Jimp function constructor and pass in Base64URL
       .then(function (newImage) {
         // call promise and pass in newImage as anonymous function
+        competitorImageContainer.insertAdjacentHTML('afterbegin', spinner); //insert loading spinner into the DOM whilst updating
+
         return newImage; // promise returns image when handled
       })["catch"](function (err) {
         // catch errors that occur
@@ -55,11 +58,18 @@
 
       combinedImage.then(function (data) {
         //thenable on promise to check if resolved or rejects
+        console.log(data[1]);
         data[1] // access the backgroundImage
-        .composite(data[0], 0, 0) // place bottle image on top at location x and y
+
+        /**
+         * data[1].bitmap.width is the width of the background image
+         * date[0].bitmap.width is the width of the bottle image
+         * 
+         * the width of the background / 2 - the width of the bottle / 2
+         */
+        .composite(data[0], data[1].bitmap.width / 2 - data[0].bitmap.width / 2, 1260) // place bottle image on top at location x and y
         .getBase64(Jimp.MIME_PNG, function (err, src) {
           // convert to Base64URL string
-          // console.log(src); // print to console
           localStorage.setItem("competitor-image-combined", src); // set item in local storage
 
           competitorImageContainer.innerHTML = ''; //clear container for image

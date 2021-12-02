@@ -14,6 +14,7 @@
 
 
 #### 2021-12-2
-1. Create a loading affordance to show the image function is doing its thing
+~~1. Create a loading affordance to show the image function is doing its thing~~
 ~~2. Store in new competitor image in local storage~~
-3. Export DataUrls as JPG images for downloading
+~~3. Place in the center of the competitor image~~
+4. Export DataUrls as JPG images for downloading

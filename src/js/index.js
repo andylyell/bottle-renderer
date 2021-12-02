@@ -11,6 +11,10 @@ import { bottlePreviewTemplate } from './templates/bottlePreview.js';
 const fileInput = document.getElementById('fileInput');
 const sectionUpload = document.getElementById('section-upload');
 const competitorImageContainer = document.getElementById('competitor-image-container');
+const spinner = `
+    <div class="loading-spinner">
+        <div class="loading-spinner__spinner"></div>
+    </div>`;
 
 //////////////////////
 // Functions
@@ -45,8 +49,10 @@ function updateCompetitorImage() {
     let bottleImageDataUrl = localStorage.getItem('bottle-image'); //get the image from localStorage 
     bottleImageDataUrl = Buffer.from(bottleImageDataUrl.replace(/^data:image\/\w+;base64,/, ""),'base64'); // turn image into binary format for Jimp to read
 
+
     const bottleImage = Jimp.read(bottleImageDataUrl) //use a Jimp function constructor and pass in Base64URL
         .then(function(newImage) { // call promise and pass in newImage as anonymous function
+            competitorImageContainer.insertAdjacentHTML('afterbegin', spinner); //insert loading spinner into the DOM whilst updating
             return newImage; // promise returns image when handled
         })
         .catch(function(err) { // catch errors that occur
@@ -65,10 +71,18 @@ function updateCompetitorImage() {
 
     combinedImage
         .then(function(data) { //thenable on promise to check if resolved or rejects
+            console.log(data[1]);
             data[1] // access the backgroundImage
-                .composite(data[0], 0 ,0) // place bottle image on top at location x and y
+
+                /**
+                 * data[1].bitmap.width is the width of the background image
+                 * date[0].bitmap.width is the width of the bottle image
+                 * 
+                 * the width of the background / 2 - the width of the bottle / 2
+                 */
+
+                .composite(data[0], ((data[1].bitmap.width/2) - (data[0].bitmap.width/2)) ,1260) // place bottle image on top at location x and y
                 .getBase64(Jimp.MIME_PNG, function(err, src) { // convert to Base64URL string
-                    // console.log(src); // print to console
                     localStorage.setItem("competitor-image-combined", src); // set item in local storage
                     competitorImageContainer.innerHTML = ''; //clear container for image
                     const imagePreviewElement = bottlePreviewTemplate('uploaded bottle', src); //call function to populate template
