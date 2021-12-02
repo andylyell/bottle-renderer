@@ -29,3 +29,9 @@ Using the `display:inline-flex' el
 ### Converting from Base64 to binary format
 https://github.com/oliver-moran/jimp/issues/322
 https://stackoverflow.com/questions/52400486/error-cropping-a-base64-format-image-using-jimp-package-in-nodejs
+
+### Using jimp.composite function
+https://github.com/jessguilford/how-to-composite-with-jimp/blob/master/composite.js
+
+### Promises
+https://github.com/nzakas/understandinges6/blob/master/manuscript/11-Promises.md#returning-promises-in-promise-chains

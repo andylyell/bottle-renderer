@@ -12,21 +12,25 @@
     var fileInput = document.getElementById('fileInput');
     var sectionUpload = document.getElementById('section-upload');
     var competitorImageContainer = document.getElementById('competitor-image-container'); //////////////////////
-    // Functions
-    //////////////////////
-    //==// function to put imported image in DOM //==//
 
-    function putImageInDom() {
-      var bottleImageDataUrl = localStorage.getItem('bottle-image');
+    function placeImagesInDom(images) {
+      //get array of multiple image objects
+      images.forEach(function (image) {
+        var imageName = image.imageName,
+            imageLocation = image.imageLocation; //destructure object
 
-      if (bottleImageDataUrl) {
-        //check if an image exists within localStorage
-        sectionUpload.innerHTML = ''; //clear current image in the DOM
+        var bottleImageDataUrl = localStorage.getItem(imageName); // get image from local storage that matches image array
 
-        var imagePreviewElement = bottlePreviewTemplate('uploaded bottle', bottleImageDataUrl); //call function to populate template
+        if (bottleImageDataUrl) {
+          //check if an image exists within localStorage
+          var imagePreviewElement = bottlePreviewTemplate('uploaded bottle', bottleImageDataUrl); //call function to populate image template
 
-        sectionUpload.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
-      }
+          imageLocation.innerHTML = ''; //clear current image in the DOM
+
+          imageLocation.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
+        }
+        return;
+      });
     }
 
     function updateCompetitorImage() {
@@ -34,31 +38,54 @@
 
       bottleImageDataUrl = Buffer.from(bottleImageDataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64'); // turn image into binary format for Jimp to read
 
-      Jimp.read(bottleImageDataUrl) //use a Jimp function constructor and pass in Base64URL
+      var bottleImage = Jimp.read(bottleImageDataUrl) //use a Jimp function constructor and pass in Base64URL
       .then(function (newImage) {
         // call promise and pass in newImage as anonymous function
-        newImage.rotate(180) // rotate image
-        .getBase64(Jimp.MIME_PNG, function (err, src) {
-          //change image to PNG and convert to Base64URL
-          localStorage.setItem("competitor-image", src); // set item in local storage
-
-          var imagePreviewElement = bottlePreviewTemplate('uploaded bottle', src); //call function to populate template
-
-          competitorImageContainer.innerHTML = ''; //clear container for image
-
-          competitorImageContainer.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
-        });
+        return newImage; // promise returns image when handled
       })["catch"](function (err) {
         // catch errors that occur
         console.error(err); //print error to the console
       });
-      console.log('updated competitor image');
+      var backgroundImage = Jimp.read('images/background.png').then(function (backgroundImageData) {
+        return backgroundImageData; // promoise returns image when handled
+      })["catch"](function (err) {
+        console.error(err);
+      });
+      var combinedImage = Promise.all([bottleImage, backgroundImage]); //promise.all to resolve all promises to use data from multiple images
+
+      combinedImage.then(function (data) {
+        //thenable on promise to check if resolved or rejects
+        data[1] // access the backgroundImage
+        .composite(data[0], 0, 0) // place bottle image on top at location x and y
+        .getBase64(Jimp.MIME_PNG, function (err, src) {
+          // convert to Base64URL string
+          // console.log(src); // print to console
+          localStorage.setItem("competitor-image-combined", src); // set item in local storage
+
+          competitorImageContainer.innerHTML = ''; //clear container for image
+
+          var imagePreviewElement = bottlePreviewTemplate('uploaded bottle', src); //call function to populate template
+
+          competitorImageContainer.insertAdjacentHTML('beforeend', imagePreviewElement); //insert into the DOM
+        });
+      })["catch"](function (err) {
+        console.error(err);
+      });
     } //////////////////////
     // Event listeners
     //////////////////////
 
 
-    document.addEventListener("DOMContentLoaded", putImageInDom);
+    document.addEventListener("DOMContentLoaded", function () {
+      var imagesToUpdate = [{
+        imageName: 'bottle-image',
+        imageLocation: sectionUpload
+      }, {
+        imageName: 'competitor-image-combined',
+        imageLocation: competitorImageContainer
+      }];
+      placeImagesInDom(imagesToUpdate);
+    });
     fileInput.addEventListener("change", function (e) {
       //select file input button and pass in click event
       if (localStorage.getItem('bottle-image')) {
@@ -74,9 +101,16 @@
         //add event listener to the load event
         localStorage.setItem("bottle-image", reader.result); //set local storage with result from reader instance
 
-        putImageInDom(); // put image into the DOM with function
-
         updateCompetitorImage(); // update competitor image within the DOM with new image
+
+        var imagesToUpdate = [{
+          imageName: 'bottle-image',
+          imageLocation: sectionUpload
+        }, {
+          imageName: 'competitor-image-combined',
+          imageLocation: competitorImageContainer
+        }];
+        placeImagesInDom(imagesToUpdate);
       });
     });
 
