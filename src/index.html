@@ -13,6 +13,9 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"
+        integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -63,7 +66,8 @@
                 <div class="image-accordion__controls">
                     <button class="button button--primary">Choose competitors</button>
                     <button class="button button--secondary">Properties</button>
-                    <button class="button button--tertiary">Export JPG
+                    <button id="competitor-export-button" class="button button--tertiary"
+                        id="competitor-export-button">Export JPG
                         <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 style="enable-background:new 0 0 24 24" xml:space="preserve">
                                 <path d="m13.3 7.7 3.8 3.8H5v1h12.1l-3.8 3.8.7.7 5-5-5-5z" />

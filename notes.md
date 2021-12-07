@@ -18,8 +18,6 @@ https://tutorial.tips/how-to-crop-image-in-browser-using-jimp/
     How big are the files Nico would like to use
     Need to store in localStorage
 
-
-
 ### Creating the file upload button
 
 Using [wtfforms](http://wtfforms.com/) to get a sense of styling for the file upload buttons
@@ -35,3 +33,13 @@ https://github.com/jessguilford/how-to-composite-with-jimp/blob/master/composite
 
 ### Promises
 https://github.com/nzakas/understandinges6/blob/master/manuscript/11-Promises.md#returning-promises-in-promise-chains
+
+### Downloading using javascript
+https://www.delftstack.com/howto/javascript/javascript-download/
+
+### Writing to the file system from the browser (did not use this method in the end)
+https://web.dev/file-system-access/
+https://wicg.github.io/file-system-access/
+
+### using FileSaver to download image
+https://github.com/eligrey/FileSaver.js

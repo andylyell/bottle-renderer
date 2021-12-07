@@ -12,6 +12,7 @@
     var fileInput = document.getElementById('fileInput');
     var sectionUpload = document.getElementById('section-upload');
     var competitorImageContainer = document.getElementById('competitor-image-container');
+    document.getElementById('competitor-export-button');
     var spinner = "\n    <div class=\"loading-spinner\">\n        <div class=\"loading-spinner__spinner\"></div>\n    </div>"; //////////////////////
 
     function placeImagesInDom(images) {
@@ -81,11 +82,47 @@
       })["catch"](function (err) {
         console.error(err);
       });
+    } //==// Function to download a specific image from Local Storage //==//
+
+
+    function downloadImage() {
+      console.log('Exported all images'); //read the image from localStorage that is intended to be downloaded
+
+      var downloadableImage = localStorage.getItem('competitor-image-combined'); //get the image from localStorage 
+
+      downloadableImage = Buffer.from(downloadableImage.replace(/^data:image\/\w+;base64,/, ""), 'base64'); // turn image into binary format for Jimp to read
+
+      Jimp.read(downloadableImage) //use a Jimp function constructor and pass in Base64URL
+      .then(function (newImage) {
+        // call promise and pass in newImage as anonymous function
+        console.log(newImage); //print Jimp object to DOM
+
+        newImage.getBase64(Jimp.MIME_JPEG, function (err, src) {
+          saveAs(src, "new-image.jpg");
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
     } //////////////////////
     // Event listeners
     //////////////////////
 
 
+    document.addEventListener('click', function (e) {
+      // check if competitor export button clicked
+      if (e.target.id === 'competitor-export-button') {
+        console.log('export competitor image');
+      } // check if export all button has been clicked
+
+
+      if (e.target.id === 'export-all') {
+        downloadImage();
+      }
+
+      if (e.target.id === 'competitor-export-button') {
+        downloadImage();
+      }
+    });
     document.addEventListener("DOMContentLoaded", function () {
       var imagesToUpdate = [{
         imageName: 'bottle-image',
@@ -122,7 +159,11 @@
         }];
         placeImagesInDom(imagesToUpdate);
       });
-    });
+    }); // let downloadElement = document.createElement('a'); //create link element needed for download
+    // downloadElement.setAttribute('href', downloadableImage); // set href attribuite of the link element
+    // downloadElement.setAttribute('download', 'image.jpg'); //set download attribute of the link element
+    // console.log(downloadElement);
+    // downloadElement.click(); // simulate the button click of the element
 
 })();
 //# sourceMappingURL=script.js.map
