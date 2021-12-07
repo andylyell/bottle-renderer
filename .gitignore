@@ -4,5 +4,5 @@
 /public
 script.js.map
 .vercel
-.promises.js
-.example-jimp-index.js
+promises.js
+example-jimp-index.js
